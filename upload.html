@@ -1,0 +1,127 @@
+<!--<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Upload Item</title>
+<style>
+body{font-family:Arial;background:#f4f4f4}
+.container{width:300px;margin:50px auto;background:#fff;padding:20px;border-radius:10px}
+input,textarea{width:100%;padding:10px;margin:5px 0}
+button{padding:10px;width:100%}
+</style>
+</head>
+<body>
+
+<div class="container">
+<h2>Report Found Item</h2>
+
+<input type="text" id="name" placeholder="Item Name" required>
+<textarea id="desc" placeholder="Description"></textarea>
+<input type="text" id="location" placeholder="Found Location">
+<input type="date" id="date">
+<input type="file" id="image">
+
+<button onclick="saveItem()">Submit</button>
+<button onclick="location.href='index.html'">Back</button>
+</div>
+
+<script>
+function saveItem(){
+let name=document.getElementById("name").value
+let desc=document.getElementById("desc").value
+let location=document.getElementById("location").value
+let date=document.getElementById("date").value
+let file=document.getElementById("image").files[0]
+
+if(!name || !file){
+alert("Name and Image required")
+return
+}
+
+let reader=new FileReader()
+reader.onload=function(){
+let items=JSON.parse(localStorage.getItem("items"))||[]
+
+items.push({
+name:name,
+desc:desc,
+location:location,
+date:date,
+image:reader.result
+})
+
+localStorage.setItem("items",JSON.stringify(items))
+alert("Item Uploaded")
+location.href="index.html"
+}
+reader.readAsDataURL(file)
+}
+</script>
+
+</body>
+</html>-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Upload Item</title>
+<style>
+body{font-family:Arial;background:#f4f4f4}
+.container{width:300px;margin:50px auto;background:#fff;padding:20px;border-radius:10px}
+input,textarea{width:100%;padding:10px;margin:5px 0}
+button{padding:10px;width:100%}
+</style>
+</head>
+<body>
+
+<div class="container">
+<h2>Report Found Item</h2>
+
+<input type="text" id="name" placeholder="Item Name" required>
+<textarea id="desc" placeholder="Description"></textarea>
+<input type="text" id="location" placeholder="Found Location">
+<input type="date" id="date">
+<input type="file" id="image">
+
+<button onclick="saveItem()">Submit</button>
+<button onclick="location.href='index.html'">Back</button>
+</div>
+
+<script>
+function saveItem(){
+let name=document.getElementById("name").value
+let desc=document.getElementById("desc").value
+let location=document.getElementById("location").value
+let date=document.getElementById("date").value
+let file=document.getElementById("image").files[0]
+
+if(!name || !file){
+alert("Name and Image required")
+return
+}
+
+let reader=new FileReader()
+reader.onload=function(){
+let items=JSON.parse(localStorage.getItem("items"))||[]
+
+items.push({
+name:name,
+desc:desc,
+location:location,
+date:date,
+image:reader.result,
+status:"available"
+})
+
+localStorage.setItem("items",JSON.stringify(items))
+alert("Item Uploaded")
+location.href="index.html"
+}
+reader.readAsDataURL(file)
+}
+</script>
+
+</body>
+</html>

@@ -1,0 +1,111 @@
+<!--<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Item Details</title>
+<style>
+body{font-family:Arial;background:#f4f4f4}
+.container{width:400px;margin:50px auto;background:#fff;padding:20px;border-radius:10px}
+img{width:100%;border-radius:10px}
+button{padding:10px;width:100%;margin-top:10px}
+</style>
+</head>
+<body>
+
+<div class="container" id="details"></div>
+
+<script>
+let items=JSON.parse(localStorage.getItem("items"))||[]
+let index=localStorage.getItem("viewIndex")
+
+let item=items[index]
+
+document.getElementById("details").innerHTML=`
+<img src="${item.image}">
+<h2>${item.name}</h2>
+<p>${item.desc}</p>
+<p><b>Location:</b> ${item.location}</p>
+<p><b>Date:</b> ${item.date}</p>
+<button onclick="location.href='index.html'">Back</button>
+`
+</script>
+
+</body>
+</html>-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Item Details</title>
+<style>
+body{font-family:Arial;background:#f4f4f4}
+.container{width:400px;margin:50px auto;background:#fff;padding:20px;border-radius:10px}
+img{width:100%;border-radius:10px}
+button{padding:10px;width:100%;margin-top:10px}
+#claimForm{display:none;margin-top:15px}
+input,textarea{width:100%;padding:8px;margin:5px 0}
+</style>
+</head>
+<body>
+
+<div class="container" id="details"></div>
+
+<script>
+let items=JSON.parse(localStorage.getItem("items"))||[]
+let index=localStorage.getItem("viewIndex")
+let item=items[index]
+
+function showClaimForm(){
+document.getElementById("claimForm").style.display="block"
+}
+
+function submitClaim(){
+let name=document.getElementById("claimName").value
+let contact=document.getElementById("claimContact").value
+let proof=document.getElementById("claimProof").value
+
+if(!name || !contact){
+alert("Name and Contact required")
+return
+}
+
+let claims=JSON.parse(localStorage.getItem("claims"))||[]
+
+claims.push({
+itemName:item.name,
+owner:name,
+contact:contact,
+proof:proof
+})
+
+localStorage.setItem("claims",JSON.stringify(claims))
+
+alert("Claim Submitted! Wait for verification.")
+location.href="index.html"
+}
+
+document.getElementById("details").innerHTML=`
+<img src="${item.image}">
+<h2>${item.name}</h2>
+<p>${item.desc}</p>
+<p><b>Location:</b> ${item.location}</p>
+<p><b>Date:</b> ${item.date}</p>
+
+<button onclick="showClaimForm()">Claim This Item</button>
+
+<div id="claimForm">
+<h3>Claim Form</h3>
+<input type="text" id="claimName" placeholder="Your Name">
+<input type="text" id="claimContact" placeholder="Contact Info">
+<textarea id="claimProof" placeholder="Describe proof (color, marks, etc)"></textarea>
+<button onclick="submitClaim()">Submit Claim</button>
+</div>
+
+<button onclick="location.href='index.html'">Back</button>
+`
+</script>
+
+</body>
+</html>

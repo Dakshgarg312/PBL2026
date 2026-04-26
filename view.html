@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Item Details</title>
+<style>
+body{font-family:Arial;background:#f4f4f4}
+.container{width:400px;margin:50px auto;background:#fff;padding:20px;border-radius:10px}
+button{padding:10px;width:100%;margin-top:10px}
+iframe{width:100%;height:300px;border:none}
+</style>
+</head>
+<body>
+
+<div class="container">
+<h2>Item Details</h2>
+
+<iframe id="itemFrame"></iframe>
+
+<h3>Claim Item</h3>
+
+<form action="/cgi-bin/claim.py" method="POST">
+<input type="hidden" id="itemId" name="id">
+<input type="text" name="name" placeholder="Your Name" required>
+<input type="number" name="contact" placeholder="Contact Info" required>
+<textarea name="proof" placeholder="Describe proof"></textarea>
+<button type="submit">Submit Claim</button>
+</form>
+
+<button onclick="location.href='index.html'">Back</button>
+</div>
+
+<script>
+const params = new URLSearchParams(window.location.search);
+const id = params.get("id");
+
+document.getElementById("itemFrame").src = "/cgi-bin/view.py?id=" + id;
+document.getElementById("itemId").value = id;
+</script>
+
+</body>
+</html>
